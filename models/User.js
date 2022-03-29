@@ -18,17 +18,16 @@ const userSchema = new Schema({
             type: String,
             required: true,
         },
-        favoriteMovies:[ 
+        playList:[ 
             {
             type: Schema.Types.ObjectId,
-            ref: 'LikedMovies',
+            ref: 'PlayList',
             }
         ],
-        playlist: [
-            {
-                type: String
-            }
-        ]
+        apiToken:{
+            type: String,
+            unique: true,
+        }
     }
 )
 

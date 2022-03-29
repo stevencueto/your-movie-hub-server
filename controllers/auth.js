@@ -23,7 +23,7 @@ router.post('/register', userExists,  async (req, res) => {
             },
             process.env.TOKEN_GENERATOR
         )
-        res.send({
+        return res.send({
             success: true,
             data: token
         })
@@ -35,7 +35,7 @@ router.post('/register', userExists,  async (req, res) => {
 router.post( '/login', async(req, res) =>{
     console.log(req.body)
     try{
-    const possibleUser = await User.findOne({email: req.body.email}).populate('favoriteMovies')
+    const possibleUser = await User.findOne({email: req.body.email})
     if(possibleUser){
         const okpass = comparePassword(req.body.password, possibleUser.password)
         if(okpass){
@@ -50,7 +50,7 @@ router.post( '/login', async(req, res) =>{
                 },
                 process.env.TOKEN_GENERATOR
             )
-            res.send({
+            return res.send({
                 success: true,
                 data: token
             })
@@ -60,7 +60,7 @@ router.post( '/login', async(req, res) =>{
     }
     return catchErr(possibleUser, res, "No Matching Credentials in The DBS")
     }catch(err){
-        catchErr(err, res, "Something went wrong with that request")
+        return catchErr(err, res, "Something went wrong with that request")
     }
 })
 

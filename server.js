@@ -40,11 +40,11 @@ app.use(express.json())
 //require router
 const authRouter = require('./controllers/auth')
 const likedMoviesRouter = require('./controllers/LikedMovies')
-
+const apiRouter = require('./controllers/apiRouter')
 
 app.use('/auth', authRouter)
-app.use('/favorite-movies/', likedMoviesRouter)
-
+app.use('/playlist/', likedMoviesRouter)
+app.use('/movies', apiRouter)
 
 
 
