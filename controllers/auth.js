@@ -63,7 +63,7 @@ router.post( '/login', async(req, res) =>{
     }
 })
 
-router.put( '/edit', async(req, res) =>{
+router.put('/edit', async(req, res) =>{
     const token = req.headers["x-access-token"]
     const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 	const id = decoded._id
