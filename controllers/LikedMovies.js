@@ -9,7 +9,7 @@ const catchErr = require('../middleware/serverError')
 router.get('/', async (req, res) => {
 	try {
 		const favoriteMovies = await LikedMovies.find()
-		res.send({
+		return res.send({
             success: true,
             data: favoriteMovies
         })
@@ -19,12 +19,14 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/user', async (req, res) => {
-	const token = req.headers['x-access-token']
+	const token = req.headers["x-access-token"]
+    console.log(token, "---------")
 	try {
-		const decoded = jwt.verify(token, 'secret123')
+		const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 		const id = decoded._id
+        console.log(id, "id")
 		const favoriteMovies = await LikedMovies.find({username: id })
-		res.send({
+		return res.send({
             success: true,
             data: favoriteMovies
         })
@@ -35,12 +37,15 @@ router.get('/user', async (req, res) => {
 
 router.post('/', async (req, res) => {
     const token = req.headers['x-access-token']
+    console.log(token, "token")
 	try {
-        const decoded = jwt.verify(token, 'secret123')
+        const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 		const id = decoded._id
+        console.log(id, "id")
         req.body.user = id
+        console.log(req.body, 'body')
         const newFavoriteMovie = await LikedMovies.create(req.body)
-		res.send({
+		return res.send({
             success: true,
             data: newFavoriteMovie
         })

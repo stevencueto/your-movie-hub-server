@@ -33,11 +33,11 @@ router.post('/register', userExists,  async (req, res) => {
 })
 
 router.post( '/login', async(req, res) =>{
+    console.log(req.body)
     try{
-    const possibleUser = await User.findOne({email: req.body.email})
+    const possibleUser = await User.findOne({email: req.body.email}).populate('favoriteMovies')
     if(possibleUser){
         const okpass = comparePassword(req.body.password, possibleUser.password)
-        console.log(okpass)
         if(okpass){
             const token = jwt.sign(
                 {
@@ -55,14 +55,12 @@ router.post( '/login', async(req, res) =>{
                 data: token
             })
         }else{
-            res.send({
-                success: false,
-                data: "Worng Password"
-            })
+            return catchErr(possibleUser, res, "Wrong Password")
         }
     }
+    return catchErr(possibleUser, res, "No Matching Credentials in The DBS")
     }catch(err){
-        catchErr(err, res, "No Matching Credentials in The DBS")
+        catchErr(err, res, "Something went wrong with that request")
     }
 })
 
