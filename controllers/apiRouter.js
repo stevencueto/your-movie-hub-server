@@ -12,6 +12,7 @@ router.post('/trending', async (req, res)=>{
           const apiResquest = await superagent.get(`${APILink}movie/popular?api_key=${key}&language=en-US`);
           const apiResponse =  apiResquest.text
           const toJson =  JSON.parse(apiResponse)
+          console.log(toJson)
         return res.send({
             success: true,
             data: toJson,
