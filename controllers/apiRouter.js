@@ -6,8 +6,7 @@ const APILink = 'https://api.themoviedb.org/3/'
 const superagent = require('superagent');
 
 
-router.post('/trending', async (req, res)=>{
-    const page = req.body.page;
+router.get('/trending', async (req, res)=>{
         try {
           const apiResquest = await superagent.get(`${APILink}movie/popular?api_key=${key}&language=en-US`);
           const apiResponse =  apiResquest.text
@@ -22,7 +21,7 @@ router.post('/trending', async (req, res)=>{
            return catchErr(err, res, err.message)
         }
 })
-router.post('/search', async (req, res)=>{
+router.get('/search', async (req, res)=>{
     const search = req.body.term;
     const page = req.body.page;
     console.log(req.body)
