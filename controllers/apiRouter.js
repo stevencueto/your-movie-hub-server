@@ -7,8 +7,6 @@ const superagent = require('superagent');
 
 
 router.get('/trending/:page', async (req, res)=>{
-    const page = req.params.page || 1
-
         try {
           const apiResquest = await superagent.get(`${APILink}movie/popular?api_key=${key}&language=en-US&PAGE=${req.params.page}`);
           const apiResponse =  apiResquest.text
@@ -44,6 +42,7 @@ router.post('/search', async (req, res)=>{
 })
 
 router.get('/similar/:movie', async (req, res)=>{
+    const page = req.params.page
     try {
       const apiResquest = await superagent.get(`${APILink}movie/${movie}/similar?api_key=${key}&language=en-US&page=${page}`);
       const apiResponse =  apiResquest.text
@@ -59,7 +58,7 @@ router.get('/similar/:movie', async (req, res)=>{
 })
 
 router.get('/top-rated/:page', async (req, res)=>{
-    const page = req.params.page  || 1;
+    const page = req.params.page
     try {
       const apiResquest = await superagent.get(`${APILink}movie/top_rated?api_key=${key}&language=en-US&page=${page}`);
       const apiResponse =  apiResquest.text
