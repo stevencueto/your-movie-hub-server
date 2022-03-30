@@ -27,6 +27,7 @@ const userSchema = new Schema({
         apiToken:{
             type: String,
             unique: true,
+            sparse:true
         }
     }
 )

@@ -6,9 +6,11 @@ const APILink = 'https://api.themoviedb.org/3/'
 const superagent = require('superagent');
 
 
-router.get('/trending', async (req, res)=>{
+router.get('/trending/:page', async (req, res)=>{
+    const page = req.params.page || 1
+
         try {
-          const apiResquest = await superagent.get(`${APILink}movie/popular?api_key=${key}&language=en-US`);
+          const apiResquest = await superagent.get(`${APILink}movie/popular?api_key=${key}&language=en-US&PAGE=${req.params.page}`);
           const apiResponse =  apiResquest.text
           const toJson =  JSON.parse(apiResponse)
           console.log(toJson)
@@ -41,8 +43,23 @@ router.post('/search', async (req, res)=>{
     }
 })
 
+router.get('/similar/:movie', async (req, res)=>{
+    try {
+      const apiResquest = await superagent.get(`${APILink}movie/${movie}/similar?api_key=${key}&language=en-US&page=${page}`);
+      const apiResponse =  apiResquest.text
+      const toJson =  JSON.parse(apiResponse)
+    return res.send({
+        success: true,
+        data: toJson,
+        totalPages: toJson.total_pages
+    })
+    } catch (err) {
+       return catchErr(err, res, err.message)
+    }
+})
+
 router.get('/top-rated/:page', async (req, res)=>{
-    const page = 1 || req.params.page;
+    const page = req.params.page  || 1;
     try {
       const apiResquest = await superagent.get(`${APILink}movie/top_rated?api_key=${key}&language=en-US&page=${page}`);
       const apiResponse =  apiResquest.text
@@ -56,6 +73,7 @@ router.get('/top-rated/:page', async (req, res)=>{
        return catchErr(err, res, err.message)
     }
 })
+
 
 router.get('/movie/:id', async(req, res)=>{
     const id = req.params.id;
