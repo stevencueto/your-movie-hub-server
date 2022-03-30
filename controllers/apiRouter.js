@@ -21,7 +21,7 @@ router.get('/trending', async (req, res)=>{
            return catchErr(err, res, err.message)
         }
 })
-router.get('/search', async (req, res)=>{
+router.post('/search', async (req, res)=>{
     const search = req.body.term;
     const page = req.body.page;
     console.log(req.body)
