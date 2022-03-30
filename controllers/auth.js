@@ -12,7 +12,7 @@ router.post('/register', userExists,  async (req, res) => {
     req.body.password = hashedPassword(req.body.password)
     try{
         const newUser = await User.create(req.body)
-        newUser.password = null;
+        console.log(newUser)
         const token = jwt.sign(
             {
                 username: newUser.username,
