@@ -10,6 +10,7 @@ const payListSchema = new Schema({
     movie:[
             {
                 type: Object,
+                unique: false
             }
     ],
     user: {
