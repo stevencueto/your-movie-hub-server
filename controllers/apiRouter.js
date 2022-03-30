@@ -8,7 +8,7 @@ const superagent = require('superagent');
 
 router.get('/trending/:page', async (req, res)=>{
         try {
-          const apiResquest = await superagent.get(`${APILink}movie/popular?api_key=${key}&language=en-US&PAGE=${req.params.page}`);
+          const apiResquest = await superagent.get(`${APILink}movie/popular?api_key=${key}&language=en-US&page=${req.params.page}`);
           const apiResponse =  apiResquest.text
           const toJson =  JSON.parse(apiResponse)
           console.log(toJson)
