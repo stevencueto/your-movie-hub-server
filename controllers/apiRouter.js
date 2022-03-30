@@ -6,7 +6,8 @@ const APILink = 'https://api.themoviedb.org/3/'
 const superagent = require('superagent');
 
 
-router.get('/trending', async (req, res)=>{
+router.post('/trending', async (req, res)=>{
+    const page = req.body.page;
         try {
           const apiResquest = await superagent.get(`${APILink}movie/popular?api_key=${key}&language=en-US`);
           const apiResponse =  apiResquest.text
@@ -23,12 +24,14 @@ router.get('/trending', async (req, res)=>{
 router.post('/search', async (req, res)=>{
     const search = req.body.term;
     const page = req.body.page;
-    console.log(req.params.term)
+    console.log(req.body)
+    if(!search) return  catchErr(search, res, "server err")
     try {
       const apiResquest = await superagent.get(`${APILink}search/movie?api_key=${key}&language=en-US&query=${search}&page=${page}&include_adult=false`);
       const apiResponse =  apiResquest.text
       const toJson =  JSON.parse(apiResponse)
-    return res.send({
+      console.log(toJson)
+        return res.send({
         success: true,
         data: toJson,
         totalPages: toJson.total_pages,
@@ -37,7 +40,6 @@ router.post('/search', async (req, res)=>{
        return catchErr(err, res, "server err")
     }
 })
-const topRated = "https://api.themoviedb.org/3/movie/top_rated?api_key=%24%7Bkey%7D&language=en-US&page=1"
 
 router.get('/top-rated/:page', async (req, res)=>{
     const page = 1 || req.params.page;

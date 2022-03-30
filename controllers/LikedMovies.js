@@ -20,11 +20,9 @@ router.get('/', async (req, res) => {
 
 router.get('/user', async (req, res) => {
 	const token = req.headers["x-access-token"]
-    console.log(token, "---------")
 	try {
 		const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 		const id = decoded._id
-        console.log(id, "id")
 		const playList = await PlayList.find({username: id })
 		return res.send({
             success: true,
@@ -37,7 +35,6 @@ router.get('/user', async (req, res) => {
 
 router.post('/', async (req, res) => {
     const token = req.headers['x-access-token']
-    console.log(token, "token")
 	try {
         const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 		const id = decoded._id
@@ -55,12 +52,10 @@ router.post('/', async (req, res) => {
 
 router.put('/', async (req, res) => {
     const token = req.headers['x-access-token']
-    console.log(token, "token")
 	try {
         const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 		const id = decoded._id
         req.body.user = id
-        console.log(req.body, 'body')
         const newPlaylist = await PlayList.findById(req.body._id)
         if(newPlaylist.user === id){
             const updatedPlaylist = await PlayList.findByIdAndUpdate(newPlaylist._id, req.body, {new:true})
@@ -77,13 +72,11 @@ router.put('/', async (req, res) => {
 
 router.put('/add', async (req, res) => {
     const token = req.headers['x-access-token']
-    console.log(token, "token")
     const addMovie = req.body.movie;
 	try {
         const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 		const id = decoded._id
         req.body.user = id
-        console.log(req.body, 'body')
         const newPlaylist = await PlayList.findById(req.body._id)
         if(newPlaylist.user === id){
             const updatedPlaylist = await PlayList.findByIdAndUpdate(
@@ -109,13 +102,11 @@ router.put('/add', async (req, res) => {
 })
 router.delete('/remove', async (req, res) => {
     const token = req.headers['x-access-token']
-    console.log(token, "token")
     const removeMovie = req.body.movie;
 	try {
         const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 		const id = decoded._id
         req.body.user = id
-        console.log(req.body, 'body')
         const newPlaylist = await PlayList.findById(req.body._id)
         if(newPlaylist.user === id){
             const updatedPlaylist = await PlayList.findByIdAndUpdate(
@@ -146,7 +137,6 @@ router.delete('/delete', async (req, res) => {
         const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 		const id = decoded._id
         req.body.user = id
-        console.log(req.body, 'body')
         const newPlaylist = await PlayList.findById(req.body._id)
         if(newPlaylist.user === id){
             const updatedPlaylist = await PlayList.findByIdAndDelete(newPlaylist._id)

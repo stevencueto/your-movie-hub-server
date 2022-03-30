@@ -43,8 +43,9 @@ const likedMoviesRouter = require('./controllers/LikedMovies')
 const apiRouter = require('./controllers/apiRouter')
 
 app.use('/auth', authRouter)
-app.use('/playlist/', likedMoviesRouter)
 app.use('/movies', apiRouter)
+app.use('/playlist/', likedMoviesRouter)
+
 
 
 

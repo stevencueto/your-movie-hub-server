@@ -4,6 +4,9 @@ const Schema = mongoose.Schema;
 
 
 const payListSchema = new Schema({
+    name: {
+        type: String
+    },
     movie:[
             {
                 type: Object,
