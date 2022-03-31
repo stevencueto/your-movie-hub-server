@@ -24,7 +24,6 @@ router.post('/user', async (req, res) => {
     const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 	const id = decoded._id
 	try {
-		const id = req.params.id
 		const playlist = await Playlist.find({user: id })
 		return res.send({
             success: true,
