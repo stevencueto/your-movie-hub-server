@@ -21,7 +21,7 @@ const movieSchema = new Schema({
     },
   });
 
-const payListSchema = new Schema({
+const paylistSchema = new Schema({
     name: {
         type: String
     },
@@ -37,5 +37,5 @@ const payListSchema = new Schema({
 })
 
 
-const PlayList = mongoose.model('PlayList', payListSchema)
-module.exports = PlayList;
+const Playlist = mongoose.model('Playlist', paylistSchema)
+module.exports = Playlist;

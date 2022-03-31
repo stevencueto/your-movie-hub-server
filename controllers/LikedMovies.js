@@ -2,16 +2,16 @@ const express = require('express')
 const router = express.Router()
 const jwt = require('jsonwebtoken')
 const User = require('../models/User')
-const PlayList = require('../models/PlayLists')
+const Playlist = require('../models/PlayLists')
 const catchErr = require('../middleware/serverError')
 
 
 router.get('/', async (req, res) => {
 	try {
-		const playList = await PlayList.find()
+		const playlist = await Playlist.find()
 		return res.send({
             success: true,
-            data: playList
+            data: playlist
         })
     }catch(err){
         return catchErr(err, res, 'Failed to look up playlist')
@@ -22,10 +22,10 @@ router.get('/', async (req, res) => {
 router.get('/user/:id', async (req, res) => {
 	try {
 		const id = req.params.id
-		const playList = await PlayList.find({user: id })
+		const playlist = await Playlist.find({user: id })
 		return res.send({
             success: true,
-            data: playList
+            data: playlist
         })
     }catch(err){
         return catchErr(err, res, 'Failed to look up playlist')
@@ -39,7 +39,7 @@ router.post('/', async (req, res) => {
 		const id = decoded._id
         req.body.user = id
         console.log(req.body, 'body')
-        const newPlaylist = await PlayList.create(req.body)
+        const newPlaylist = await Playlist.create(req.body)
 		return res.send({
             success: true,
             data: newPlaylist
@@ -55,9 +55,9 @@ router.put('/', async (req, res) => {
         const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 		const id = decoded._id
         req.body.user = id
-        const newPlaylist = await PlayList.findById(req.body._id)
+        const newPlaylist = await Playlist.findById(req.body._id)
         if(newPlaylist.user === id){
-            const updatedPlaylist = await PlayList.findByIdAndUpdate(newPlaylist._id, req.body, {new:true})
+            const updatedPlaylist = await Playlist.findByIdAndUpdate(newPlaylist._id, req.body, {new:true})
             return res.send({
                 success: true,
                 data: updatedPlaylist
@@ -76,9 +76,9 @@ router.put('/add', async (req, res) => {
         const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 		const id = decoded._id
         req.body.user = id
-        const newPlaylist = await PlayList.findById(req.body._id)
+        const newPlaylist = await Playlist.findById(req.body._id)
         if(newPlaylist.user === id){
-            const updatedPlaylist = await PlayList.findByIdAndUpdate(
+            const updatedPlaylist = await Playlist.findByIdAndUpdate(
                 {
                     _id :newPlaylist._id
                 },{
@@ -106,9 +106,9 @@ router.delete('/remove', async (req, res) => {
         const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 		const id = decoded._id
         req.body.user = id
-        const newPlaylist = await PlayList.findById(req.body._id)
+        const newPlaylist = await Playlist.findById(req.body._id)
         if(newPlaylist.user === id){
-            const updatedPlaylist = await PlayList.findByIdAndUpdate(
+            const updatedPlaylist = await Playlist.findByIdAndUpdate(
                 {_id: newPlaylist._id},
                 {
                     $pull: {
@@ -136,9 +136,9 @@ router.delete('/delete', async (req, res) => {
         const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 		const id = decoded._id
         req.body.user = id
-        const newPlaylist = await PlayList.findById(req.body._id)
+        const newPlaylist = await Playlist.findById(req.body._id)
         if(newPlaylist.user === id){
-            const updatedPlaylist = await PlayList.findByIdAndDelete(newPlaylist._id)
+            const updatedPlaylist = await Playlist.findByIdAndDelete(newPlaylist._id)
             return res.send({
                 success: true,
                 data: updatedPlaylist

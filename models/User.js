@@ -18,10 +18,10 @@ const userSchema = new Schema({
             type: String,
             required: true,
         },
-        playList:[ 
+        playlist:[ 
             {
             type: Schema.Types.ObjectId,
-            ref: 'PlayList',
+            ref: 'Playlist',
             }
         ],
         apiToken:{

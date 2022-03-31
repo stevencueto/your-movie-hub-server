@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../models/User')
-const PlayList = require('../models/PlayLists')
+const Playlist = require('../models/PlayLists')
 const catchErr = require('../middleware/serverError')
 const { hashedPassword, comparePassword} = require('../middleware/passwordHasser')
 const userExists = require('../middleware/userExists')
@@ -95,7 +95,7 @@ router.delete('/:id', async (req, res)=>{
 	const id = decoded._id
     if(!id) return catchErr(id, res, "User not found")
     try{
-        await PlayList.deleteMany({username: id }) // deletes user's existing items  
+        await Playlist.deleteMany({username: id }) // deletes user's existing items  
         await User.findByIdAndDelete(id) //to delete user by their passport 
         return res.send({
             success: true,
