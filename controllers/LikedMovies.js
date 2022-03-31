@@ -19,11 +19,9 @@ router.get('/', async (req, res) => {
 })
 
 
-router.get('/user', async (req, res) => {
-	const token = req.headers["x-access-token"]
+router.get('/user/:id', async (req, res) => {
 	try {
-		const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
-		const id = decoded._id
+		const id = req.params.id
 		const playList = await PlayList.find({user: id })
 		return res.send({
             success: true,
