@@ -24,7 +24,7 @@ router.get('/user', async (req, res) => {
 	try {
 		const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 		const id = decoded._id
-		const playList = await PlayList.find({username: id })
+		const playList = await PlayList.find({user: id })
 		return res.send({
             success: true,
             data: playList
