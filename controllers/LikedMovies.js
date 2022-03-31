@@ -18,6 +18,7 @@ router.get('/', async (req, res) => {
     }
 })
 
+
 router.get('/user', async (req, res) => {
 	const token = req.headers["x-access-token"]
 	try {

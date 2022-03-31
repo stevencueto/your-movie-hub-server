@@ -11,7 +11,6 @@ router.get('/trending/:page', async (req, res)=>{
           const apiResquest = await superagent.get(`${APILink}movie/popular?api_key=${key}&language=en-US&page=${req.params.page}`);
           const apiResponse =  apiResquest.text
           const toJson =  JSON.parse(apiResponse)
-          console.log(toJson)
         return res.send({
             success: true,
             data: toJson,
@@ -30,7 +29,6 @@ router.post('/search', async (req, res)=>{
       const apiResquest = await superagent.get(`${APILink}search/movie?api_key=${key}&language=en-US&query=${search}&page=${page}&include_adult=false`);
       const apiResponse =  apiResquest.text
       const toJson =  JSON.parse(apiResponse)
-      console.log(toJson)
         return res.send({
         success: true,
         data: toJson,
