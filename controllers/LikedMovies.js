@@ -77,15 +77,9 @@ router.put('/add/:id', async (req, res) => {
 	try {
         const token = req.headers['x-access-token']
         const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
-        const id = decoded._id
-        const user = await User.findById(id)
-        const newPlaylist = await Playlist.findById(req.params.id)
-        console.log(newPlaylist.user, id)
-        dupp(newPlaylist.movie, addMovie, res)
-        if(newPlaylist.user === newPlaylist.user){
             const updatedPlaylist = await Playlist.findByIdAndUpdate(
                 {
-                    _id :newPlaylist._id
+                    _id :req.params.id
                 },{
                     $push: {
                         movie: addMovie
@@ -99,8 +93,6 @@ router.put('/add/:id', async (req, res) => {
                 success: true,
                 data: updatedPlaylist
             })
-        }
-        return catchErr(null, res, `You can modify that playlist`)
     }catch(err){
         return catchErr(err, res, 'Server Error')
     }
