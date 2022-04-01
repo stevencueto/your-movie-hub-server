@@ -81,7 +81,7 @@ router.put('/add/:id', async (req, res) => {
         const user = await User.findById(id)
         const newPlaylist = await Playlist.findById(req.params.id)
         console.log(newPlaylist.user, id)
-        if(newPlaylist.user === id){
+        if(newPlaylist.user === newPlaylist.user){
             const updatedPlaylist = await Playlist.findByIdAndUpdate(
                 {
                     _id :newPlaylist._id
