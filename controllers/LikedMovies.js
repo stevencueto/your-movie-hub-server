@@ -88,7 +88,7 @@ router.put('/add/:id', async (req, res) => {
                     new:true
                 }
             )
-            console.log(updatedPlaylist, user._id)
+            console.log(updatedPlaylist)
             return res.send({
                 success: true,
                 data: updatedPlaylist
