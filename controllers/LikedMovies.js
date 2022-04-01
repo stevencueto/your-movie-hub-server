@@ -73,7 +73,7 @@ router.put('/', async (req, res) => {
 
 router.put('/add/:id', async (req, res) => {
     const token = req.headers['x-access-token']
-    const addMovie = req.body.movie;
+    const addMovie = req.body;
 	try {
         const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 		const id = decoded._id
@@ -103,7 +103,7 @@ router.put('/add/:id', async (req, res) => {
 })
 router.delete('/remove/:id', async (req, res) => {
     const token = req.headers['x-access-token']
-    const removeMovie = req.body.movie;
+    const removeMovie = req.body;
 	try {
         const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 		const id = decoded._id
