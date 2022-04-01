@@ -11,9 +11,11 @@ const movieSchema = new Schema({
       },
     poster_path: {
       type: String,
+      unique: true,
     },
     overview: {
         type: String,
+        unique: true,
     },
     id: {
       type: Number,
@@ -25,7 +27,7 @@ const paylistSchema = new Schema({
     name: {
         type: String
     },
-    movie: [[movieSchema],{sparse:true}],
+    movie: [movieSchema ,{sparse:true}],
     user: {
         type: Schema.Types.ObjectId,
         ref: "User",
