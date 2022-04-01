@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
 })
 
 
-router.post('/user', async (req, res) => {
+router.get('/user', async (req, res) => {
     const token = req.headers['x-access-token']
     const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 	const id = decoded._id
@@ -76,9 +76,9 @@ router.put('/add/:id', async (req, res) => {
 	try {
         const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 		const id = decoded._id
-        console.log(id)
-        req.body.user = id
+        console.log(id, 'id')
         const newPlaylist = await Playlist.findById(req.params.id)
+        console.log(newPlaylist.user, id)
         if(newPlaylist.user === id){
             const updatedPlaylist = await Playlist.findByIdAndUpdate(
                 {
