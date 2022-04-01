@@ -150,12 +150,7 @@ router.delete('/delete/:id', async (req, res) => {
 })
 
 
-const dupp = (arrayOfmovies, movieToAdd, res, next) => {
-    if(arrayOfmovies.length = 0) return next()
-    const isDupp = arrayOfmovies.filter((posdup) => posdup[0].id === movieToAdd.id)
-    if(isDupp.length > 0) return catchErr(isDupp, res, "Movie already on playlists")
-    next()
-}
+
 
 
 module.exports = router;
