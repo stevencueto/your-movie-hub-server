@@ -81,6 +81,7 @@ router.put('/add/:id', async (req, res) => {
         const user = await User.findById(id)
         const newPlaylist = await Playlist.findById(req.params.id)
         console.log(newPlaylist.user, id)
+        dupp(newPlaylist.movie, addMovie, res)
         if(newPlaylist.user === newPlaylist.user){
             const updatedPlaylist = await Playlist.findByIdAndUpdate(
                 {
@@ -155,6 +156,14 @@ router.delete('/delete/:id', async (req, res) => {
         return catchErr(err, res, 'Failed delete playlist')
     }
 })
+
+
+const dupp = (arrayOfmovies, movieToAdd, res, next) => {
+    if(arrayOfmovies.length = 0) return next()
+    const isDupp = arrayOfmovies.filter((posdup) => posdup[0].id === movieToAdd.id)
+    if(isDupp.length > 0) return catchErr(isDupp, res, "Movie already on playlists")
+    next()
+}
 
 
 module.exports = router;
