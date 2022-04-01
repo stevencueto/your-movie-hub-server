@@ -71,14 +71,14 @@ router.put('/', async (req, res) => {
     }
 })
 
-router.put('/add', async (req, res) => {
+router.put('/add/:id', async (req, res) => {
     const token = req.headers['x-access-token']
     const addMovie = req.body.movie;
 	try {
         const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 		const id = decoded._id
         req.body.user = id
-        const newPlaylist = await Playlist.findById(req.body._id)
+        const newPlaylist = await Playlist.findById(req.params.id)
         if(newPlaylist.user === id){
             const updatedPlaylist = await Playlist.findByIdAndUpdate(
                 {
@@ -101,14 +101,14 @@ router.put('/add', async (req, res) => {
         return catchErr(err, res, 'Failed to make new playlist')
     }
 })
-router.delete('/remove', async (req, res) => {
+router.delete('/remove/:id', async (req, res) => {
     const token = req.headers['x-access-token']
     const removeMovie = req.body.movie;
 	try {
         const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 		const id = decoded._id
         req.body.user = id
-        const newPlaylist = await Playlist.findById(req.body._id)
+        const newPlaylist = await Playlist.findById(req.params.id)
         if(newPlaylist.user === id){
             const updatedPlaylist = await Playlist.findByIdAndUpdate(
                 {_id: newPlaylist._id},
@@ -132,13 +132,13 @@ router.delete('/remove', async (req, res) => {
     }
 })
 
-router.delete('/delete', async (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
     const token = req.headers['x-access-token']
 	try {
         const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 		const id = decoded._id
         req.body.user = id
-        const newPlaylist = await Playlist.findById(req.body._id)
+        const newPlaylist = await Playlist.findById(req.params.id)
         if(newPlaylist.user === id){
             const updatedPlaylist = await Playlist.findByIdAndDelete(newPlaylist._id)
             return res.send({

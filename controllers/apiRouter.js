@@ -85,7 +85,21 @@ router.get('/movie/:id', async(req, res)=>{
       } catch (err) {
          return catchErr(err, res, "Server Error")
       }
-  })
+})
+router.get('/watch/:id', async(req, res)=>{
+    const id = req.params.id;
+    try {
+        const apiResquest = await superagent.get(`${APILink}movie/${id}/watch/providers?api_key=${key}`);
+        const apiResponse =  apiResquest.text
+        const toJson =  JSON.parse(apiResponse)
+      return res.send({
+          success: true,
+          data: toJson,
+      })
+      } catch (err) {
+         return catchErr(err, res, "Server Error")
+      }
+})
 
 router.get('/credits/:id', async(req, res) =>{
     const id = req.params.id;
