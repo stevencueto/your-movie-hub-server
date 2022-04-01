@@ -79,6 +79,7 @@ router.put('/add/:id', async (req, res) => {
         const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
         const findMovie = Playlist.findById(req.params.id)    
         const otherMvoie = () =>{
+            if(findMovie.length === 0) return false
             let posMovie = false
             findMovie.movie.forEach((movie) =>{
                 if(movie[0].id === addMovie.id) return posMovie = true
