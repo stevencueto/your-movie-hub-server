@@ -20,10 +20,11 @@ router.get('/', async (req, res) => {
 
 
 router.get('/user', async (req, res) => {
+    console.log('llll')
     const token = req.headers['x-access-token']
     const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 	const id = decoded._id
-    console.log(decoded)
+    console.log(decoded, "racist vs code")
 	try {
 		const playlist = await Playlist.find({user: id })
 		return res.send({
@@ -72,16 +73,15 @@ router.put('/', async (req, res) => {
 })
 
 router.put('/add/:id', async (req, res) => {
-    const token = req.headers['x-access-token']
     const addMovie = req.body;
 	try {
+        const token = req.headers['x-access-token']
         const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
-        console.log(decoded)
-		const id = decoded._id
+        const id = decoded._id
         const user = await User.findById(id)
         const newPlaylist = await Playlist.findById(req.params.id)
         console.log(newPlaylist.user, id)
-        if(newPlaylist.user === user._id){
+        if(newPlaylist.user === id){
             const updatedPlaylist = await Playlist.findByIdAndUpdate(
                 {
                     _id :newPlaylist._id
@@ -101,7 +101,7 @@ router.put('/add/:id', async (req, res) => {
         }
         return catchErr(null, res, `You can modify that playlist`)
     }catch(err){
-        return catchErr(err, res, 'Failed to make new playlist')
+        return catchErr(err, res, 'Server Error')
     }
 })
 router.delete('/remove/:id', async (req, res) => {
