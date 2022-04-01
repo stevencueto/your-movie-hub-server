@@ -23,6 +23,7 @@ router.get('/user', async (req, res) => {
     const token = req.headers['x-access-token']
     const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 	const id = decoded._id
+    console.log(decoded)
 	try {
 		const playlist = await Playlist.find({user: id })
 		return res.send({
@@ -75,6 +76,7 @@ router.put('/add/:id', async (req, res) => {
     const addMovie = req.body;
 	try {
         const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
+        console.log(decoded)
 		const id = decoded._id
         const user = await User.findById(id)
         const newPlaylist = await Playlist.findById(req.params.id)
@@ -91,7 +93,7 @@ router.put('/add/:id', async (req, res) => {
                     new:true
                 }
             )
-            console.log(updatedPlaylist, "here")
+            console.log(updatedPlaylist, user._id)
             return res.send({
                 success: true,
                 data: updatedPlaylist
