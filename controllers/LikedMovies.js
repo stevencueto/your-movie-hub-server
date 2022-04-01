@@ -77,6 +77,15 @@ router.put('/add/:id', async (req, res) => {
 	try {
         const token = req.headers['x-access-token']
         const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
+        const findMovie = Playlist.findById(req.params.id)    
+        const otherMvoie = () =>{
+            let posMovie = false
+            findMovie.movie.forEach((movie) =>{
+                if(movie[0].id === addMovie.id) return posMovie = true
+            })
+            return posMovie
+        }
+        if(otherMvoie()) return catchErr(addMovie, res, "Movie Alredy in dbs")
             const updatedPlaylist = await Playlist.findByIdAndUpdate(
                 {
                     _id :req.params.id
