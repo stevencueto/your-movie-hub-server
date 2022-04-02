@@ -58,7 +58,7 @@ router.put('/', async (req, res) => {
     const token = req.headers['x-access-token']
     const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
     	try {
-            const updatedPlaylist = await Playlist.findByIdAndUpdate(newPlaylist._id, req.body, {new:true})
+            const updatedPlaylist = await Playlist.findByIdAndUpdate(req.body._id, req.body, {new:true})
             return res.send({
                 success: true,
                 data: updatedPlaylist
