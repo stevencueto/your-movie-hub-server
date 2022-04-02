@@ -109,14 +109,14 @@ router.put('/add/:id', async (req, res) => {
         return catchErr(err, res, 'Server Error')
     }
 })
-router.delete('/remove/:id', async (req, res) => {
+router.put('/remove/:id', async (req, res) => {
     const token = req.headers['x-access-token']
     const removeMovie = req.body;
 	try {
         const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 		const id = decoded._id
         const newPlaylist = await Playlist.findById(req.params.id)
-        console.log(id, newPlaylist.user)
+        console.log(id, newPlaylist.user, "here us the dilema")
         if(newPlaylist.user === id){
             const updatedPlaylist = await Playlist.findByIdAndUpdate(
                 {_id: newPlaylist._id},
