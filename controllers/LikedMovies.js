@@ -116,6 +116,7 @@ router.delete('/remove/:id', async (req, res) => {
 		const id = decoded._id
         const user = await User.findById(id)
         const newPlaylist = await Playlist.findById(req.params.id)
+        console.log(user._id, newPlaylist._id)
         if(newPlaylist.user === user._id){
             const updatedPlaylist = await Playlist.findByIdAndUpdate(
                 {_id: newPlaylist._id},
