@@ -25,7 +25,7 @@ const paylistSchema = new Schema({
     name: {
         type: String
     },
-    movie: [[movieSchema] ,{sparse:true}],
+    movie: [movieSchema,{sparse:true}],
     user: {
         type: Schema.Types.ObjectId,
         ref: "User",
