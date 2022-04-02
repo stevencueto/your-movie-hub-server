@@ -119,6 +119,7 @@ router.put('/remove/:id', async (req, res) => {
         const newPlaylist = await Playlist.findById(req.params.id)
         console.log(user._id, newPlaylist.user, "here us the dilema")
         if(newPlaylist.user === user._id){
+            console.log('this is the id')
             const updatedPlaylist = await Playlist.findByIdAndUpdate(
                 {_id: newPlaylist._id},
                 {
