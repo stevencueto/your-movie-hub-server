@@ -115,9 +115,10 @@ router.put('/remove/:id', async (req, res) => {
 	try {
         const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 		const id = decoded._id
+        const user = await User.findById(id)
         const newPlaylist = await Playlist.findById(req.params.id)
-        console.log(id, newPlaylist.user, "here us the dilema")
-        if(newPlaylist.user === id){
+        console.log(user._id, newPlaylist.user, "here us the dilema")
+        if(newPlaylist.user === user._id){
             const updatedPlaylist = await Playlist.findByIdAndUpdate(
                 {_id: newPlaylist._id},
                 {
