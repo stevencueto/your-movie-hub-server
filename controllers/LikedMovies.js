@@ -133,8 +133,10 @@ router.put('/remove/:id', async (req, res) => {
                 success: true,
                 data: updatedPlaylist
             })
+        }else{
+            console.log(`it's going there`)
+            return catchErr(null, res, `You can modify that playlist`)
         }
-        return catchErr(null, res, `You can modify that playlist`)
     }catch(err){
         return catchErr(err, res, 'Failed to make new playlist')
     }
