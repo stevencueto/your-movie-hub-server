@@ -114,9 +114,9 @@ router.delete('/remove/:id', async (req, res) => {
 	try {
         const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 		const id = decoded._id
-        req.body.user = id
+        const user = await User.findById(id)
         const newPlaylist = await Playlist.findById(req.params.id)
-        if(newPlaylist.user === id){
+        if(newPlaylist.user === user._id){
             const updatedPlaylist = await Playlist.findByIdAndUpdate(
                 {_id: newPlaylist._id},
                 {
