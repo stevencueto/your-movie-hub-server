@@ -104,7 +104,7 @@ router.put('/add/:id', async (req, res) => {
         return catchErr(err, res, 'Server Error')
     }
 })
-router.put('/remove/:id', async (req, res) => {
+router.delete('/remove/:id', async (req, res) => {
     const token = req.headers['x-access-token']
     const removeMovie = req.body;
     console.log(removeMovie)
@@ -116,7 +116,7 @@ router.put('/remove/:id', async (req, res) => {
                 {
                     $pull: {
                         movie: 
-                               removeMovie
+                               [removeMovie]
                         }
                 },{
                     new:true
