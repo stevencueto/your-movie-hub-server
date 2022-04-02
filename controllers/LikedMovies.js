@@ -79,7 +79,7 @@ router.put('/add/:id', async (req, res) => {
             if(findMovie.movie.length === 0) return false
             let posMovie = false
             for(const movie of findMovie.movie){
-                if(movie[0].id === addMovie.id) return posMovie = true
+                if(movie.id === addMovie.id) return posMovie = true
             }
             return posMovie
         }

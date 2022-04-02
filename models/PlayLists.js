@@ -17,7 +17,6 @@ const movieSchema = new Schema({
     },
     id: {
       type: Number,
-      unique: true
     },
   });
 
