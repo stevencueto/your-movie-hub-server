@@ -107,6 +107,7 @@ router.put('/add/:id', async (req, res) => {
 router.put('/remove/:id', async (req, res) => {
     const token = req.headers['x-access-token']
     const removeMovie = req.body;
+    console.log(removeMovie)
 	try {
         const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
         if(decoded){
@@ -115,7 +116,7 @@ router.put('/remove/:id', async (req, res) => {
                 {
                     $pull: {
                         movie: 
-                               removeMovie._id
+                               removeMovie
                         }
                 },{
                     new:true
