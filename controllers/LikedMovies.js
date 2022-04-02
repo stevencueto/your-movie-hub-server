@@ -115,14 +115,7 @@ router.delete('/remove/:id', async (req, res) => {
                 {_id: req.params.id},
                 {
                     $pull: {
-                        movie: 
-                        {$in:
-                            [
-                                {
-                                    _id: removeMovie._id
-                                }
-                            ]  
-                        } 
+                        movie: removeMovie
                     }
                 },{
                     new:true
