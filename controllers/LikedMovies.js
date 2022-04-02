@@ -41,7 +41,8 @@ router.post('/', async (req, res) => {
 	try {
         const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 		const id = decoded._id
-        req.body.user = id
+        const user = await User.findById(id)
+        req.body.user = user._id
         console.log(req.body, 'body')
         const newPlaylist = await Playlist.create(req.body)
 		return res.send({
@@ -116,7 +117,7 @@ router.delete('/remove/:id', async (req, res) => {
 		const id = decoded._id
         const user = await User.findById(id)
         const newPlaylist = await Playlist.findById(req.params.id)
-        console.log(user._id, newPlaylist._id)
+        console.log(user._id, newPlaylist.user)
         if(newPlaylist.user === user._id){
             const updatedPlaylist = await Playlist.findByIdAndUpdate(
                 {_id: newPlaylist._id},
