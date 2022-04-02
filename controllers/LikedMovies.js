@@ -57,19 +57,14 @@ router.post('/', async (req, res) => {
 router.put('/', async (req, res) => {
     const token = req.headers['x-access-token']
     const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
-	const id = decoded._id
     	try {
-        const newPlaylist = await Playlist.findById(req.body._id)
-        if(newPlaylist.user === id){
             const updatedPlaylist = await Playlist.findByIdAndUpdate(newPlaylist._id, req.body, {new:true})
             return res.send({
                 success: true,
                 data: updatedPlaylist
             })
-        }
-        return catchErr(null, res, `You can modify that playlist`)
     }catch(err){
-        return catchErr(err, res, 'Failed to make new playlist')
+        return catchErr(err, res, 'Failed to make edit')
     }
 })
 
