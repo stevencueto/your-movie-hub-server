@@ -14,6 +14,11 @@ const movieSchema = new Schema({
     },
     overview: {
         type: String,
+    },runtime: {
+      type: Number,
+    },watched:{
+      type: Boolean,
+      default: false
     },
     id: {
       type: Number,
