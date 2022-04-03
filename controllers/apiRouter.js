@@ -41,7 +41,7 @@ router.post('/search', async (req, res)=>{
 
 router.get('/similar/:movie', async (req, res)=>{
     try {
-      const apiResquest = await superagent.get(`${APILink}movie/${movie}/similar?api_key=${key}&language=en-US&page=1`);
+      const apiResquest = await superagent.get(`${APILink}movie/${req.params.movie}/similar?api_key=${key}&language=en-US&page=1`);
       const apiResponse =  apiResquest.text
       const toJson =  JSON.parse(apiResponse)
     return res.send({
@@ -55,7 +55,7 @@ router.get('/similar/:movie', async (req, res)=>{
 
 router.get('/recommended/:movie', async (req, res)=>{
     try {
-      const apiResquest = await superagent.get(`${APILink}movie/${movie}/recomendations?api_key=${key}&language=en-US&page=1`);
+      const apiResquest = await superagent.get(`${APILink}movie/${req.params.movie}/recomendations?api_key=${key}&language=en-US&page=1`);
       const apiResponse =  apiResquest.text
       const toJson =  JSON.parse(apiResponse)
     return res.send({
