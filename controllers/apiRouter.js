@@ -40,15 +40,27 @@ router.post('/search', async (req, res)=>{
 })
 
 router.get('/similar/:movie', async (req, res)=>{
-    const page = req.params.page
     try {
-      const apiResquest = await superagent.get(`${APILink}movie/${movie}/similar?api_key=${key}&language=en-US&page=${page}`);
+      const apiResquest = await superagent.get(`${APILink}movie/${movie}/similar?api_key=${key}&language=en-US&page=1`);
       const apiResponse =  apiResquest.text
       const toJson =  JSON.parse(apiResponse)
     return res.send({
         success: true,
         data: toJson,
-        totalPages: toJson.total_pages
+    })
+    } catch (err) {
+       return catchErr(err, res, err.message)
+    }
+})
+
+router.get('/recommended/:movie', async (req, res)=>{
+    try {
+      const apiResquest = await superagent.get(`${APILink}movie/${movie}/recomendations?api_key=${key}&language=en-US&page=1`);
+      const apiResponse =  apiResquest.text
+      const toJson =  JSON.parse(apiResponse)
+    return res.send({
+        success: true,
+        data: toJson,
     })
     } catch (err) {
        return catchErr(err, res, err.message)
