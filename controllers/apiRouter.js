@@ -82,6 +82,36 @@ router.get('/top-rated/:page', async (req, res)=>{
        return catchErr(err, res, err.message)
     }
 })
+router.get('/upcoming/:page', async (req, res)=>{
+    const page = req.params.page
+    try {
+      const apiResquest = await superagent.get(`${APILink}movie/top_rated?api_key=${key}&language=en-US&page=${page}`);
+      const apiResponse =  apiResquest.text
+      const toJson =  JSON.parse(apiResponse)
+    return res.send({
+        success: true,
+        data: toJson,
+        totalPages: toJson.total_pages
+    })
+    } catch (err) {
+       return catchErr(err, res, err.message)
+    }
+})
+router.get('/now-playing/:page', async (req, res)=>{
+    const page = req.params.page
+    try {
+      const apiResquest = await superagent.get(`${APILink}movie/now_playing?api_key=${key}&language=en-US&page=${page}`);
+      const apiResponse =  apiResquest.text
+      const toJson =  JSON.parse(apiResponse)
+    return res.send({
+        success: true,
+        data: toJson,
+        totalPages: toJson.total_pages
+    })
+    } catch (err) {
+       return catchErr(err, res, err.message)
+    }
+})
 
 
 router.get('/movie/:id', async(req, res)=>{
