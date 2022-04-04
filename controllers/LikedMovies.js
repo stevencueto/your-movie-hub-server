@@ -133,7 +133,7 @@ router.delete('/delete/:id', async (req, res) => {
     const token = req.headers['x-access-token']
     const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 	try {
-            const updatedPlaylist = await Playlist.findByIdAndDelete(newPlaylist._id)
+            const updatedPlaylist = await Playlist.findByIdAndDelete(req.params.id)
             return res.send({
                 success: true,
                 data: updatedPlaylist})
