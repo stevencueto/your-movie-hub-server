@@ -18,9 +18,22 @@ router.get('/', async (req, res) => {
     }
 })
 
+router.get('/find/:id', async (req, res) => {
+    const token = req.headers['x-access-token']
+    const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
+	try {
+		const playlist = await Playlist.findById(req.params.id)
+		return res.send({
+            success: true,
+            data: playlist
+        })
+    }catch(err){
+        return catchErr(err, res, 'Failed to look up playlist')
+    }
+})
+
 
 router.get('/user', async (req, res) => {
-    console.log('llll')
     const token = req.headers['x-access-token']
     const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 	const id = decoded._id
