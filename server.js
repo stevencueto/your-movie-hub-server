@@ -5,6 +5,7 @@ const morgan = require('morgan')
 const app = express()
 const jtw = require('jsonwebtoken')
 const cors = require('cors')
+const nodemailer = require("nodemailer");
 
 
 

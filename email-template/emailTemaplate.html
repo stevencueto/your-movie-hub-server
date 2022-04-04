@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/b339758fbf.js" crossorigin="anonymous"></script>
+    <title>Welcome</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,200&display=swap");
+
+        *{
+            margin: 0 auto;
+            padding: 0;
+            box-sizing: border-box;
+            border: none;
+            font-weight: 300;
+            font-family: 'Roboto', sans-serif;
+            color: #FFFFFF;
+        }
+        body{
+            max-width: 1600px;
+        }
+
+        html{
+            background-color: black;
+        }
+
+        #hero-img {
+            max-width: 100%;
+        }
+
+      header {
+        width: 98%;
+      }
+
+      #logo {
+        max-width: 120px;
+        margin: 3% 0 3% 3%;
+        float: left;
+      }
+
+
+      .social-media-link {
+        position: fixed;
+        right: 0.8em;
+        top: .5em;
+        list-style-type: none;
+      }
+
+      .social-media-link ul li {
+        display: inline;
+      }
+      .footer-links{
+            text-decoration: none;
+            color: rgb(1, 1, 1);
+            font-size: 3rem;
+        }
+      .btn {
+        position: fixed;
+        bottom: 2em;
+        left: 0.5em;
+        background-color: white;
+        color: black;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 5px 12px;
+        border-radius: 8px;
+        letter-spacing: 2px;
+        font-size: 1em;
+      }
+
+      hr {
+        height: 1px;
+        background-color: #303840;
+        clear: both;
+        width: 96%;
+        margin: auto;
+      }
+
+
+      #contact-info {
+        text-align: center;
+        padding-bottom: 3%;
+        line-height: 16px;
+        font-size: 12px;
+        color: #303840;
+      }
+
+      .email-body{
+          text-align: center;
+          padding: 10%;
+          margin: 1em auto;
+      }
+        .contact-info-with-icons p a{
+        text-decoration: none;
+        }
+
+        .contact-info-with-icons {
+            margin: 20px auto;
+            text-align: center;
+            width: 320px;
+            line-height: 1.3rem;
+        }
+
+        .contact-info-with-icons i{
+            font-size: 30px;
+            margin: 5px auto;
+            padding: 5px;
+        }
+    </style>
+  </head>
+  <body>
+    <main id="wrapper">
+      <header>
+        <div id="logo">
+            <i class="fa-brands fa-github-square"></i>
+        </div>
+        <div>
+          <ul class="social-media-link">
+            <li class="li-footers"></li><a href="https://github.com/stevencueto" target="_blank"class="footer-links"><i class="fa-brands fa-github-square"></i></a></li>
+            <li class="li-footers"></li><a href="https://www.instagram.com/stevencuetodeaza/" target="_blank" class="footer-links"><i class="fa-brands fa-instagram"></i></a></li>
+            <li class="li-footers"></li><a href="https://www.linkedin.com/in/stevencueto/" target="_blank" class="footer-links"><i class="fa-brands fa-linkedin"></i></a></li>
+          </ul>
+        </div>
+      </header>
+        <img
+            id="hero-img"
+          src="http://image.tmdb.org/t/p/w1280/wFjboE0aFZNbVOF05fzrka9Fqyx.jpg"
+          alt=""
+        />
+      <section class="email-body">
+        <h1>Welcome to your movie hub</h1>
+
+        <p>
+          This highly interactive carefully talired app is desing with the updmost care having the user experiencie allways in mind
+        </p>
+
+        <a href="http://yourmoviehub.herokuapp.com/" class="btn">Explore!</a>
+       
+      </section>
+      <hr />
+      <footer class="contact-info">
+
+            <div class="contact-info-with-icons">
+                <i class="fa-solid fa-location-dot"></i>
+                <p>New York City, NY.</p>
+            </div>
+            <div class="contact-info-with-icons">
+                <i class="fa-solid fa-envelope"></i> 
+                <p> <a href="mailto:yourmoviehub@gmail.com">yourmoviehub@gmail.com</a></p>
+            </div>
+      </footer>
+    </main>
+  </body>
+</html>

@@ -24,7 +24,6 @@ router.get('/user', async (req, res) => {
     const token = req.headers['x-access-token']
     const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 	const id = decoded._id
-    console.log(decoded, "racist vs code")
 	try {
 		const playlist = await Playlist.find({user: id })
 		return res.send({
@@ -43,7 +42,6 @@ router.post('/', async (req, res) => {
 		const id = decoded._id
         const user = await User.findById(id)
         req.body.user = user._id
-        console.log(req.body, 'body')
         const newPlaylist = await Playlist.create(req.body)
 		return res.send({
             success: true,
@@ -74,7 +72,6 @@ router.put('/add/:id', async (req, res) => {
         const token = req.headers['x-access-token']
         const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
         const findMovie = await Playlist.findById(req.params.id)  
-        console.log(findMovie)  
         const otherMvoie = () =>{
             if(findMovie.movie.length === 0) return false
             let posMovie = false
@@ -107,7 +104,6 @@ router.put('/add/:id', async (req, res) => {
 router.delete('/remove/:id', async (req, res) => {
     const token = req.headers['x-access-token']
     const removeMovie = req.body;
-    console.log(removeMovie)
 	try {
         const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
         if(decoded){
@@ -126,7 +122,6 @@ router.delete('/remove/:id', async (req, res) => {
                 data: updatedPlaylist
             })
         }else{
-            console.log(`it's going there`)
             return catchErr(null, res, `You can modify that playlist`)
         }
     }catch(err){
@@ -136,20 +131,12 @@ router.delete('/remove/:id', async (req, res) => {
 
 router.delete('/delete/:id', async (req, res) => {
     const token = req.headers['x-access-token']
+    const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
 	try {
-        const decoded = jwt.verify(token, process.env.TOKEN_GENERATOR)
-		const id = decoded._id
-        req.body.user = id
-        const newPlaylist = await Playlist.findById(req.params.id)
-        if(newPlaylist.user === id){
             const updatedPlaylist = await Playlist.findByIdAndDelete(newPlaylist._id)
             return res.send({
                 success: true,
-                data: updatedPlaylist
-            })
-        }else{
-            return catchErr(null, res, `You can modify that playlist`)
-        }
+                data: updatedPlaylist})
     }catch(err){
         return catchErr(err, res, 'Failed delete playlist')
     }
